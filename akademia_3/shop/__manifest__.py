@@ -7,7 +7,10 @@
     'author': 'Jeton',
     'website': 'Website',
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'views/client_view.xml',
+        'views/employee_view.xml',
+    ],
     'demo': [],
     'installable': True,
     'auto_install': False,

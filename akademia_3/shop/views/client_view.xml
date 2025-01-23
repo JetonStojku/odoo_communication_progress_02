@@ -9,17 +9,19 @@
                 <form string="Client">
                     <sheet>
                         <div class="oe_title">
-                            <label for="example_title"/>
+                            <label for="name"/>
                             <h1>
-                                <field name="example_title" placeholder="Title"/>
+                                <field name="name" placeholder="Name"/>
+                                <field name="surname" placeholder="Surname"/>
                             </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="create_date"/>
+                                <field name="phone_number"/>
+                                <field name="email"/>
                             </group>
                             <group>
-                                <field name="example_field"/>
+                                <field name="points"/>
                             </group>
                         </group>
                     </sheet>
@@ -47,6 +49,7 @@
                     <field name="name"/>
                     <field name="surname"/>
                     <field name="phone_number"/>
+                    <field name="email"/>
                 </search>
             </field>
         </record>
