@@ -65,7 +65,7 @@
             </field>
         </record>
 
-        <menuitem name="Employee" id="employee_menu" parent="shop_menu_root" action="employee_act_window"/>
+        <menuitem name="Employee" id="employee_menu" parent="shop_menu_root" action="employee_act_window" sequence="20"/>
 
     </data>
 </odoo>
