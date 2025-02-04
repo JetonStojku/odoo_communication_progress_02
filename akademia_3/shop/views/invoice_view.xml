@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_view" model="ir.ui.view">
+            <field name="name">shop.invoice.form</field>
+            <field name="model">shop.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Invoice">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="done,paid" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="invoice_nr"/>
+                            <h1>
+                                <field name="invoice_nr" placeholder="Invoice Number"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                                <field name="selling_invoice"/>
+                            </group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="client_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="invoice_page" string="Invoice Line">
+                                <field name="invoice_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="quantity"/>
+                                        <field name="price"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form string="Invoice Line">
+                                        <group>
+                                            <group>
+                                                <field name="product_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="quantity"/>
+                                                <field name="price"/>
+                                                <field name="total"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="total"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_tree_view" model="ir.ui.view">
+            <field name="name">shop.invoice.tree</field>
+            <field name="model">shop.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice">
+                    <field name="invoice_nr"/>
+                    <field name="total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="invoice_search_view" model="ir.ui.view">
+            <field name="name">shop.invoice.search</field>
+            <field name="model">shop.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Invoice">
+                    <field name="invoice_nr"/>
+                    <field name="date"/>
+                    <field name="employee_id"/>
+                    <field name="client_id"/>
+                    <field name="total"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="invoice_act_window" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shop.invoice</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Invoice.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Invoice" id="invoice_menu" parent="shop_menu_root" action="invoice_act_window" sequence="25"/>
+
+    </data>
+</odoo>

@@ -12,6 +12,7 @@
         'views/employee_view.xml',
         'views/product_view.xml',
         'views/category_view.xml',
+        'views/invoice_view.xml',
     ],
     'demo': [],
     'installable': True,
