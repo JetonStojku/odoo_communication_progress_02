@@ -17,6 +17,25 @@ class ShopInvoice(models.Model):
                                         ('done', 'Done'),
                                         ('paid', 'Paid')])
 
+    def confirm_invoice(self):
+        # if self.selling_invoice:
+        #     for invoice_line in self.invoice_line_ids:
+        #         invoice_line.product_id.quantity -= invoice_line.quantity
+        # else:
+        #     for invoice_line in self.invoice_line_ids:
+        #         invoice_line.product_id.quantity += invoice_line.quantity
+        # if self.selling_invoice:
+        #     koef = -1
+        # else:
+        #     koef = 1
+        koef = -1 if self.selling_invoice else 1
+        for invoice_line in self.invoice_line_ids:
+            invoice_line.product_id.quantity += koef * invoice_line.quantity
+        self.state = 'done'
+
+    def pay_invoice(self):
+        self.state = 'paid'
+
 
 class ShopInvoiceLine(models.Model):
     _name = 'shop.invoice.line'

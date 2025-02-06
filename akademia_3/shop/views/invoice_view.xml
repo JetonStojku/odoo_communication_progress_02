@@ -8,8 +8,9 @@
             <field name="arch" type="xml">
                 <form string="Invoice">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="done,paid"
-                               options="{'clickable': '1'}"/>
+                        <button name="confirm_invoice" type="object" string="Confirm invoice" invisible="state!='draft'"/>
+                        <button name="pay_invoice" type="object" string="Pay invoice" invisible="state!='done'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="done,paid"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
