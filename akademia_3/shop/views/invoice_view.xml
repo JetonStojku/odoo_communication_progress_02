@@ -16,22 +16,22 @@
                         <div class="oe_title">
                             <label for="invoice_nr"/>
                             <h1>
-                                <field name="invoice_nr" placeholder="Invoice Number"/>
+                                <field name="invoice_nr" placeholder="Invoice Number" readonly="state!='draft'"/>
                             </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="date"/>
-                                <field name="selling_invoice"/>
+                                <field name="date" readonly="state!='draft'"/>
+                                <field name="selling_invoice" readonly="state!='draft'"/>
                             </group>
                             <group>
-                                <field name="employee_id"/>
-                                <field name="client_id"/>
+                                <field name="employee_id" readonly="state!='draft'"/>
+                                <field name="client_id" readonly="state!='draft'"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="invoice_page" string="Invoice Line">
-                                <field name="invoice_line_ids">
+                                <field name="invoice_line_ids" readonly="state!='draft'">
                                     <tree editable="bottom">
                                         <field name="product_id"/>
                                         <field name="quantity"/>
@@ -67,6 +67,7 @@
             <field name="arch" type="xml">
                 <tree string="Invoice">
                     <field name="invoice_nr"/>
+                    <field name="state"/>
                     <field name="total"/>
                 </tree>
             </field>

@@ -44,6 +44,7 @@ class ShopInvoice(models.Model):
         self.state = 'done'
 
     def pay_invoice(self):
+        self.client_id.points += self.total / 100
         self.state = 'paid'
 
 
