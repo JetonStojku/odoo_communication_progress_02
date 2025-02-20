@@ -1,11 +1,12 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 
 class ShopInvoice(models.Model):
     _name = 'shop.invoice'
     _rec_name = 'invoice_nr'
 
-    invoice_nr = fields.Char(string='Invoice Number', required=True)
+    invoice_nr = fields.Char(string='Invoice Number', default='New', required=True)
     date = fields.Datetime(string='Date', required=True, default=lambda self: fields.Datetime.now())
     client_id = fields.Many2one(comodel_name='shop.client', string='Client', required=True)
     employee_id = fields.Many2one(comodel_name='shop.employee', string='Employee', required=True)
@@ -26,6 +27,27 @@ class ShopInvoice(models.Model):
             # invoice.total = s
             invoice_line_totals = invoice.invoice_line_ids.mapped('total')
             invoice.total = sum(invoice_line_totals)
+
+    @api.model
+    def create(self, values):
+        if values['selling_invoice']:
+            code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
+        else:
+            code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
+        values['invoice_nr'] = code
+        res = super(ShopInvoice, self).create(values)
+        return res
+
+    def write(self, values):
+        res = super(ShopInvoice, self).write(values)
+        return res
+
+    def unlink(self):
+        for invoice in self:
+            if invoice.state != 'draft':
+                raise UserError('Invoice can not be deleted')
+        res = super(ShopInvoice, self).unlink()
+        return res
 
     def confirm_invoice(self):
         # if self.selling_invoice:
