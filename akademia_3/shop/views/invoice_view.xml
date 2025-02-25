@@ -23,6 +23,7 @@
                             <group>
                                 <field name="date" readonly="state!='draft'"/>
                                 <field name="selling_invoice" readonly="state!='draft'"/>
+                                <field name="payment_method" readonly="state!='draft'"/>
                             </group>
                             <group>
                                 <field name="employee_id" readonly="state!='draft'"/>

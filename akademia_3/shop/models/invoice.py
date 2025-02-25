@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class ShopInvoice(models.Model):
@@ -17,6 +17,12 @@ class ShopInvoice(models.Model):
                              selection=[('draft', 'Draft'),
                                         ('done', 'Done'),
                                         ('paid', 'Paid')])
+    payment_method = fields.Selection(
+        string='Payment method', required=True, default='cash',
+        selection=[
+            ('cash', 'Cash'),
+            ('card', 'Card'),
+            ('points', 'Points')])
 
     @api.depends('invoice_line_ids')
     def _calc_total(self):
@@ -31,9 +37,9 @@ class ShopInvoice(models.Model):
     @api.model
     def create(self, values):
         if values['selling_invoice']:
-            code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
-        else:
             code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
+        else:
+            code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
         values['invoice_nr'] = code
         res = super(ShopInvoice, self).create(values)
         return res
@@ -64,9 +70,17 @@ class ShopInvoice(models.Model):
         for invoice_line in self.invoice_line_ids:
             invoice_line.product_id.quantity += koef * invoice_line.quantity
         self.state = 'done'
+        if self.selling_invoice:
+            self.pay_invoice()
 
     def pay_invoice(self):
-        self.client_id.points += self.total / 100
+        if self.selling_invoice:
+            if self.payment_method == 'points':
+                if self.client_id.points < self.total:
+                    raise ValidationError('You have less points that required!')
+                self.client_id.points -= self.total / 100
+            else:
+                self.client_id.points += self.total / 100
         self.state = 'paid'
 
 
@@ -74,7 +88,7 @@ class ShopInvoiceLine(models.Model):
     _name = 'shop.invoice.line'
 
     product_id = fields.Many2one(comodel_name='shop.product', string='Product', required=True)
-    invoice_id = fields.Many2one(comodel_name='shop.invoice', string='Invoice', required=True)
+    invoice_id = fields.Many2one(comodel_name='shop.invoice', string='Invoice', required=True, ondelete='cascade')
     quantity = fields.Float(string='Quantity', default=1)
     price = fields.Float(string='Price')
     total = fields.Float(string='Total', compute='_compute_total')
