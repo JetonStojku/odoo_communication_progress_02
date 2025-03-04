@@ -37,9 +37,9 @@ class ShopInvoice(models.Model):
     @api.model
     def create(self, values):
         if values['selling_invoice']:
-            code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
-        else:
             code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
+        else:
+            code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
         values['invoice_nr'] = code
         res = super(ShopInvoice, self).create(values)
         return res
