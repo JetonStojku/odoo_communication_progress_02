@@ -14,6 +14,7 @@
         'views/product_view.xml',
         'views/category_view.xml',
         'views/invoice_view.xml',
+        'wizard/invoice_report_wizard_view.xml',
     ],
     'demo': [],
     'installable': True,

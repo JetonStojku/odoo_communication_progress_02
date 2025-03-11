@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_report_wizard_form_view" model="ir.ui.view">
+            <field name="name">shop.invoice.report.wizard.form</field>
+            <field name="model">shop.invoice.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Report">
+                    <sheet>
+                        <group>
+                                <field name="product_ids" widget="many2many_tags"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="invoice_report_wizard_act_window" model="ir.actions.act_window">
+            <field name="name">Invoice Report Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shop.invoice.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="invoice_report_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Invoice Report" id="invoice_report_wizard_menu" parent="shop_menu_root" action="invoice_report_wizard_act_window" sequence="80"/>
+
+    </data>
+</odoo>
