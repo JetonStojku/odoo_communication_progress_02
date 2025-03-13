@@ -20,21 +20,35 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Quantity</th>
+                                <th>Date</th>
                                 <th>Sell</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="o">
+                                <!-- for o in docs -->
                                 <tr>
                                     <td>
                                         <span t-esc="o['product']"/>
                                     </td>
                                     <td>
+                                        <span t-esc="o['date']"/>
+                                    </td>
+                                    <td>
                                         <span t-esc="o['quantity']"/>
                                     </td>
                                     <td>
-                                        <span t-esc="o['sell']"/>
+                                        <span t-esc="o['price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="o['total']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="o['type']"/>
                                     </td>
                                 </tr>
                             </t>
