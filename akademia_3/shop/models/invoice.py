@@ -78,7 +78,7 @@ class ShopInvoice(models.Model):
             if self.payment_method == 'points':
                 if self.client_id.points < self.total:
                     raise ValidationError('You have less points that required!')
-                self.client_id.points -= self.total / 100
+                self.client_id.points -= self.total
             else:
                 self.client_id.points += self.total / 100
         self.state = 'paid'
