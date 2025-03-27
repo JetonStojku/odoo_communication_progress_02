@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_inherit" model="ir.ui.view">
+            <field name="name">shop.invoice.form.inherit</field>
+            <field name="model">shop.invoice</field>
+            <field name="inherit_id" ref="shop.invoice_form_view"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <field name="client_id" position="after">
+                    <field name="points"/>
+                </field>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price']" position="after">
+                    <field name="discount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

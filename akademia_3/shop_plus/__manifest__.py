@@ -7,7 +7,7 @@
     'author': 'Jeton',
     'website': 'Website',
     'depends': ['shop'],
-    'data': [],
+    'data': ['views/invoice_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,

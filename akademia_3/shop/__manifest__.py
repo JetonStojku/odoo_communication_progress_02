@@ -8,6 +8,8 @@
     'website': 'Website',
     'depends': ['base'],
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'data/invoice_sequence.xml',
         'views/client_view.xml',
         'views/employee_view.xml',

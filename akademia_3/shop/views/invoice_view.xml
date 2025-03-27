@@ -26,7 +26,7 @@
                                 <field name="payment_method" readonly="state!='draft'"/>
                             </group>
                             <group>
-                                <field name="employee_id" readonly="state!='draft'"/>
+                                <field name="employee_id" />
                                 <field name="client_id" readonly="state!='draft'"/>
                             </group>
                         </group>

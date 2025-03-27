@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+shop_client_shop_employee,shop.client.shop.employee,shop.model_shop_client,shop.group_shop_employee,1,1,1,0
+shop_employee_shop_employee,shop.employee.shop.employee,shop.model_shop_employee,shop.group_shop_employee,1,0,0,0
+shop_invoice_shop_employee,shop.invoice.shop.employee,shop.model_shop_invoice,shop.group_shop_employee,1,1,1,1
+shop_invoice_line_shop_employee,shop.invoice.line.shop.employee,shop.model_shop_invoice_line,shop.group_shop_employee,1,1,1,1
+shop_product_shop_employee,shop.product.shop.employee,shop.model_shop_product,shop.group_shop_employee,1,0,0,0
+shop_category_shop_employee,shop.category.shop.employee,shop.model_shop_category,shop.group_shop_employee,1,0,0,0

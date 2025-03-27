@@ -9,7 +9,9 @@ class ShopInvoice(models.Model):
     invoice_nr = fields.Char(string='Invoice Number', default='New', required=True)
     date = fields.Datetime(string='Date', required=True, default=lambda self: fields.Datetime.now())
     client_id = fields.Many2one(comodel_name='shop.client', string='Client', required=True)
-    employee_id = fields.Many2one(comodel_name='shop.employee', string='Employee', required=True)
+    employee_id = fields.Many2one(comodel_name='shop.employee', string='Employee', required=True, readonly=True,
+                                  default=lambda self: self.env['shop.employee'].search(
+                                      [('user_id', '=', self.env.uid)], limit=1).id)
     total = fields.Float(string='Total', compute='_calc_total', store=True)
     invoice_line_ids = fields.One2many(comodel_name='shop.invoice.line', inverse_name='invoice_id')
     selling_invoice = fields.Boolean(string='Selling Invoice', default=True)

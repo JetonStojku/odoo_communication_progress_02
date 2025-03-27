@@ -11,3 +11,4 @@ class ShopEmployee(models.Model):
                                 selection=[('seller', 'Seller'),
                                            ('manager', 'Manager')])
     start_date = fields.Date(string='Start Date', required=False, default=lambda self: fields.Date.today())
+    user_id = fields.Many2one(comodel_name='res.users', string='User')
