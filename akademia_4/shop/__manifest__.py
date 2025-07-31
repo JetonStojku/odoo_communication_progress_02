@@ -1,0 +1,15 @@
+{
+    'name': 'Shop Akademia 4',
+    'version': '1.0',
+    'summary': 'Shop Market summary',
+    'description': 'Shop market description',
+    'category': 'ak4',
+    'author': 'Jeton',
+    'website': 'Website',
+    'depends': ['base'],
+    'data': [],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}
