@@ -14,6 +14,6 @@ class ShopClient(models.Model):
     phone_number = fields.Char(string='Phone number')
     gender = fields.Selection(selection=[
         ('male', 'Male'),
-        ('female', 'Female')
-        ('other', 'Other')
+        ('female', 'Female'),
+        ('other', 'Other'),
     ], string='Gender')
