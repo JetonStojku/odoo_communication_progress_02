@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="shop_employee_view_form" model="ir.ui.view">
+        <field name="name">shop.employee.view.form</field>
+        <field name="model">shop.employee</field>
+        <field name="arch" type="xml">
+            <form string="Shop_employee">
+                <sheet>
+                    <group>
+                        <group string="Info">
+                            <field name="name"/>
+                            <field name="surname"/>
+                            <field name="position"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="salary"/>
+                            <field name="points"/>
+                        </group>
+                        <!-- Add your fields here -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="shop_employee_view_list" model="ir.ui.view">
+        <field name="name">shop.employee.view.list</field>
+        <field name="model">shop.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Shop_employee">
+                <field name="name"/>
+                <field name="surname"/>
+                <field name="position"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="shop_employee_action" model="ir.actions.act_window">
+        <field name="name">Shop employee</field>
+        <field name="res_model">shop.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first shop employee!
+            </p>
+        </field>
+    </record>
+</odoo>

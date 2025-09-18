@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="shop_product_view_form" model="ir.ui.view">
+        <field name="name">shop.product.view.form</field>
+        <field name="model">shop.product</field>
+        <field name="arch" type="xml">
+            <form string="Shop_product">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product"/>
+                            <field name="description"/>
+                            <field name="category_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="purchase_price"/>
+                            <field name="selling_price"/>
+                            <field name="quantity"/>
+
+                        </group>
+                        <!-- Add your fields here -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="shop_product_view_list" model="ir.ui.view">
+        <field name="name">shop.product.view.list</field>
+        <field name="model">shop.product</field>
+        <field name="arch" type="xml">
+            <tree string="Shop_product">
+                <field name="product"/>
+                <field name="quantity"/>
+                <field name="selling_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="shop_product_action" model="ir.actions.act_window">
+        <field name="name">Shop product</field>
+        <field name="res_model">shop.product</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first shop product!
+            </p>
+        </field>
+    </record>
+</odoo>

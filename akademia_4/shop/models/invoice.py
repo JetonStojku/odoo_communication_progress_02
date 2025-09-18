@@ -10,12 +10,19 @@ class ShopInvoice(models.Model):
     client_id = fields.Many2one(comodel_name='shop.client', string='Client', requirement=True)
     employee_id = fields.Many2one('shop.employee', string='Employee')
     total = fields.Float(string='Total', digits=(16, 2))
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('paid', 'Paid'),
+    ], string='Status', default='draft')
+
     payment_type = fields.Selection(
         string='Payment type',
         selection=[('cash', 'Cash'),
                    ('card', 'Card'),
                    ('point', 'Point')],
         required=False, )
+    invoice_line_ids = fields.One2many('shop.invoice.line', 'invoice_id', string='')
 
 
 class ShopInvoiceLine(models.Model):
@@ -25,3 +32,4 @@ class ShopInvoiceLine(models.Model):
     product_id = fields.Many2one('shop.product', string='Product')
     quantity = fields.Float(string='Quantity', digits=(16, 2))
     price = fields.Float(string='Price', digits=(16, 2))
+    total = fields.Float(string='Total', digits=(16, 2))

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="shop_category_view_form" model="ir.ui.view">
+        <field name="name">shop.category.view.form</field>
+        <field name="model">shop.category</field>
+        <field name="arch" type="xml">
+            <form string="Shop_category">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View -->
+    <record id="shop_category_view_list" model="ir.ui.view">
+        <field name="name">shop.category.view.list</field>
+        <field name="model">shop.category</field>
+        <field name="arch" type="xml">
+            <tree string="Shop_category" editable="top">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="shop_category_action" model="ir.actions.act_window">
+        <field name="name">Shop category</field>
+        <field name="res_model">shop.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first shop category!
+            </p>
+        </field>
+    </record>
+</odoo>

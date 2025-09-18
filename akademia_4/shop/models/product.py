@@ -3,8 +3,9 @@ from odoo import fields, models
 
 class ShopProduct(models.Model):
     _name = 'shop.product'
+    _rec_name = 'product'
 
-    name = fields.Char(string='Product')
+    product = fields.Char(string='Product')
     purchase_price = fields.Float(string='Purchase Price', required=True)
     selling_price = fields.Float(string='Sell Price', required=True)
     quantity = fields.Integer(string='Quantity', required=True)
