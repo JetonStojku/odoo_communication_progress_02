@@ -14,4 +14,4 @@ class ShopEmployee(models.Model):
     ], string='Status', default='seller')
     salary = fields.Integer(string='Salary', required=True, default=0)
     email = fields.Char(string='Email')
-    points = fields.Integer(string='Points')
+    points = fields.Integer(string='Points', readonly=True)
