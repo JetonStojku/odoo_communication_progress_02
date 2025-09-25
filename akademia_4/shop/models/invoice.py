@@ -23,6 +23,7 @@ class ShopInvoice(models.Model):
                    ('point', 'Point')],
         required=False, )
     invoice_line_ids = fields.One2many('shop.invoice.line', 'invoice_id', string='Invoice lines')
+    invoice_type = fields.Selection([('in', 'In'), ('out', 'Out')], string='Status', default='out', required=True)
 
     @api.depends('invoice_line_ids')
     def _compute_total(self):
@@ -32,6 +33,18 @@ class ShopInvoice(models.Model):
             #     total += line.total
             # rec.total = total
             rec.total = sum(rec.invoice_line_ids.mapped('total'))
+
+    def done_status(self):
+        self.state = 'done'
+        if self.invoice_type == 'in':
+            for line in self.invoice_line_ids:
+                line.product_id.quantity += line.quantity
+        else:
+            for line in self.invoice_line_ids:
+                line.product_id.quantity -= line.quantity
+
+    def paid_status(self):
+        self.state = 'paid'
 
 
 class ShopInvoiceLine(models.Model):
@@ -50,4 +63,7 @@ class ShopInvoiceLine(models.Model):
 
     @api.onchange('product_id')
     def _product_id_onchange(self):
-        self.price = self.product_id.selling_price
+        if self.invoice_id.invoice_type == 'out':
+            self.price = self.product_id.selling_price
+        else:
+            self.price = self.product_id.purchase_price
