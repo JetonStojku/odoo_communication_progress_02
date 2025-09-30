@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class ShopInvoice(models.Model):
@@ -45,6 +46,14 @@ class ShopInvoice(models.Model):
 
     def paid_status(self):
         self.state = 'paid'
+        if self.invoice_type == 'out':
+            if self.payment_type == 'point':
+                if self.client_id.point >= self.total:
+                    self.client_id.point -= self.total
+                else:
+                    raise ValidationError("You don't have enough points")
+            else:
+                self.client_id.point += self.total / 100
 
 
 class ShopInvoiceLine(models.Model):
@@ -52,7 +61,7 @@ class ShopInvoiceLine(models.Model):
 
     invoice_id = fields.Many2one(comodel_name='shop.invoice', string='Invoice', required=True)
     product_id = fields.Many2one('shop.product', string='Product')
-    quantity = fields.Float(string='Quantity', digits=(16, 2))
+    quantity = fields.Float(string='Quantity', digits=(16, 2), default=1)
     price = fields.Float(string='Price', digits=(16, 2))
     total = fields.Float(string='Total', digits=(16, 2), compute='_compute_total')
 

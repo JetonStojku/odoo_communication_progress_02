@@ -9,7 +9,7 @@ class ShopClient(models.Model):
     birthday = fields.Date(string='Birthday')
     address = fields.Char(string='Address')
     client_id = fields.Char(string='Client ID', required=True)
-    point = fields.Integer(string='Points', default=0, readonly=True)
+    point = fields.Float(string='Points', default=0, readonly=True)
     email = fields.Char(string='Email')
     phone_number = fields.Char(string='Phone number')
     gender = fields.Selection(selection=[

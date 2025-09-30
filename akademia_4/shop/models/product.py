@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class ShopProduct(models.Model):
@@ -11,6 +12,17 @@ class ShopProduct(models.Model):
     quantity = fields.Integer(string='Quantity', required=True)
     description = fields.Text(string='Description')
     category_ids = fields.Many2many('shop.category', string='Categories')
+
+
+    # _sql_constraints = [
+    #     ('quantity', 'CHECK(quantity>=0)', 'Quantity must be positive'),
+    # ]
+
+    @api.constrains('quantity')
+    def _check_quantity(self):
+        for product in self:
+            if product.quantity < 0:
+                raise ValidationError('Quantity must be positive')
 
 
 class ShopCategory(models.Model):
