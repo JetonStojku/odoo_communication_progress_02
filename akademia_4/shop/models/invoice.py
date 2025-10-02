@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+from odoo.api import ondelete
+from odoo.exceptions import ValidationError, UserError
 
 
 class ShopInvoice(models.Model):
     """ This model represents invoice."""
     _name = 'shop.invoice'
 
-    invoice_nr = fields.Char(string='Invoice Nr.', required=True)
+    invoice_nr = fields.Char(string='Invoice Nr.', required=True, default='New...')
     client_id = fields.Many2one(comodel_name='shop.client', string='Client', requirement=True)
     employee_id = fields.Many2one('shop.employee', string='Employee')
     total = fields.Float(string='Total', digits=(16, 2), compute='_compute_total', store=True)
@@ -43,6 +44,7 @@ class ShopInvoice(models.Model):
         else:
             for line in self.invoice_line_ids:
                 line.product_id.quantity -= line.quantity
+            self.paid_status()
 
     def paid_status(self):
         self.state = 'paid'
@@ -55,11 +57,34 @@ class ShopInvoice(models.Model):
             else:
                 self.client_id.point += self.total / 100
 
+    @api.model
+    def create(self, values):
+        if values['invoice_type'] == 'out':
+            code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
+        else:
+            code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
+        values['invoice_nr'] = code
+        res = super(ShopInvoice, self).create(values)
+        return res
+
+    def write(self, values):
+        test = self
+        res = super(ShopInvoice, self).write(values)
+        test = self
+        return res
+
+    def unlink(self):
+        for invoice in self:
+            if invoice.state != 'draft':
+                raise UserError('Invoice can not be deleted')
+        res = super(ShopInvoice, self).unlink()
+        return res
+
 
 class ShopInvoiceLine(models.Model):
     _name = 'shop.invoice.line'
 
-    invoice_id = fields.Many2one(comodel_name='shop.invoice', string='Invoice', required=True)
+    invoice_id = fields.Many2one(comodel_name='shop.invoice', string='Invoice', required=True, ondelete='cascade')
     product_id = fields.Many2one('shop.product', string='Product')
     quantity = fields.Float(string='Quantity', digits=(16, 2), default=1)
     price = fields.Float(string='Price', digits=(16, 2))

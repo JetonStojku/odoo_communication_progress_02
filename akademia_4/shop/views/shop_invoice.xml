@@ -16,14 +16,14 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="invoice_nr" readonly="state!='draft'"/>
+                            <field name="invoice_nr" readonly="True"/>
                             <field name="client_id" readonly="state!='draft'"/>
                             <field name="employee_id" readonly="state!='draft'"/>
                         </group>
                         <group>
                             <field name="total"/>
                             <field name="payment_type" readonly="state!='draft'"/>
-                            <field name="invoice_type" readonly="state!='draft'"/>
+                            <field name="invoice_type" invisible="True"/>
                         </group>
                     </group>
                     <notebook>
@@ -56,10 +56,25 @@
     </record>
 
     <!-- Action -->
-    <record id="shop_invoice_action" model="ir.actions.act_window">
-        <field name="name">Shop invoice</field>
+    <record id="shop_invoice_action_in" model="ir.actions.act_window">
+        <field name="name">Shop invoice in</field>
         <field name="res_model">shop.invoice</field>
         <field name="view_mode">list,form</field>
+        <field name="domain">[('invoice_type', '=', 'in')]</field>
+        <field name="context">{'default_invoice_type': 'in'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first shop invoice!
+            </p>
+        </field>
+    </record>
+
+    <record id="shop_invoice_action_out" model="ir.actions.act_window">
+        <field name="name">Shop invoice out</field>
+        <field name="res_model">shop.invoice</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('invoice_type', '=', 'out')]</field>
+        <field name="context">{'default_invoice_type': 'out'}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first shop invoice!
