@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
-from odoo.api import ondelete
 from odoo.exceptions import ValidationError, UserError
 
 
@@ -26,6 +25,7 @@ class ShopInvoice(models.Model):
         required=False, )
     invoice_line_ids = fields.One2many('shop.invoice.line', 'invoice_id', string='Invoice lines')
     invoice_type = fields.Selection([('in', 'In'), ('out', 'Out')], string='Status', default='out', required=True)
+    date = fields.Datetime(string='Date', required=True, default=lambda self: fields.Datetime.now())
 
     @api.depends('invoice_line_ids')
     def _compute_total(self):
