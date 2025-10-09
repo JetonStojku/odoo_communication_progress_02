@@ -32,4 +32,6 @@
               parent="shop_invoice_menu"
               action="shop_invoice_action_out"
               sequence="20"/>
+    <menuitem name="Invoice Report" id="invoice_report_wizard_menu" parent="shop_menu_root"
+                  action="invoice_report_wizard_act_window" sequence="180"/>
 </odoo>
