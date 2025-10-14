@@ -14,7 +14,7 @@
             <t t-set="data_report_landscape" t-value="True"/>
             <t t-set="full_width" t-value="True"/>
             <t t-call="web.html_container">
-                <h3 t-esc="r_name"/>
+                <h3 t-esc="report_name"/>
                 <div>
                     <table class="table table-condensed table-bordered">
                         <thead>
@@ -28,7 +28,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <t t-set="total" t-value="0"/>
                             <t t-foreach="docs" t-as="o">
+                                <t t-set="total" t-value="total+o['total']"/>
                                 <!-- for o in docs -->
                                 <tr>
                                     <td>
@@ -52,6 +54,15 @@
                                 </tr>
                             </t>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4"/>
+                                <td>
+                                    <span t-esc="total"/>
+                                </td>
+                                <td/>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </t>

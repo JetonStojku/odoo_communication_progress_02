@@ -14,6 +14,7 @@
         'views/shop_product.xml',
         'views/shop_category.xml',
         'views/shop_invoice.xml',
+        'report/invoice_report_view.xml',
         'wizard/invoice_report_wizard_view.xml',
         'views/menu.xml',
     ],
