@@ -17,6 +17,7 @@
                         <group>
                             <field name="salary"/>
                             <field name="points"/>
+                            <field name="user_id"/>
                         </group>
                         <!-- Add your fields here -->
                     </group>

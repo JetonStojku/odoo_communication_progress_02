@@ -15,3 +15,5 @@ class ShopEmployee(models.Model):
     salary = fields.Integer(string='Salary', required=True, default=0)
     email = fields.Char(string='Email')
     points = fields.Integer(string='Points', readonly=True)
+    user_id = fields.Many2one('res.users', string='User')
+
