@@ -6,12 +6,23 @@
               name="Client"
               action="client_action"
               parent="market_menu_root"
-              sequence="10"
+              sequence="30"
     />
-    <!-- Menu -->
     <menuitem id="market_employee_menu"
               name="Employee"
               action="market_employee_action"
               parent="market_menu_root"
+              sequence="40"/>
+
+    <menuitem id="market_product_menu"
+              name="Market product"
+              action="market_product_action"
+              parent="market_menu_root"
               sequence="10"/>
+
+    <menuitem id="market_invoice_menu"
+              name="Market invoice"
+              action="market_invoice_action"
+              parent="market_menu_root"
+              sequence="20"/>
 </odoo>

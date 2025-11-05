@@ -14,9 +14,11 @@
     'depends': ['base'],
     'data': [
         'views/market_client.xml',
-		'views/market_employee.xml',
+        'views/market_employee.xml',
+        'views/market_product.xml',
+        'views/market_invoice.xml',
         'views/menu.xml',
-],
+    ],
     'license': 'LGPL-3',
     'installable': True,
     'application': True,
