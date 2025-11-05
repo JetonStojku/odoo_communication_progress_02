@@ -12,7 +12,11 @@
     'maintainer': 'Cybrosys Techno Solutions',
     'website': 'https://www.cybrosys.com',
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'views/market_client.xml',
+		'views/market_employee.xml',
+        'views/menu.xml',
+],
     'license': 'LGPL-3',
     'installable': True,
     'application': True,

@@ -17,3 +17,5 @@ class MarketEmployee(models.Model):
     rate = fields.Float(string='Rate')
     email = fields.Char(string='Email')
     phone = fields.Char(string='Phone')
+    description = fields.Text(string='Description')
+

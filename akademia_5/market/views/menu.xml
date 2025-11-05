@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu -->
+    <menuitem id="market_menu_root" name="Market" sequence="10"/>
+    <menuitem id="client_menu"
+              name="Client"
+              action="client_action"
+              parent="market_menu_root"
+              sequence="10"
+    />
+    <!-- Menu -->
+    <menuitem id="market_employee_menu"
+              name="Employee"
+              action="market_employee_action"
+              parent="market_menu_root"
+              sequence="10"/>
+</odoo>
