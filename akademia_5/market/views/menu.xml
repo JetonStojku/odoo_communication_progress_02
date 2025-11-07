@@ -14,15 +14,26 @@
               parent="market_menu_root"
               sequence="40"/>
 
-    <menuitem id="market_product_menu"
-              name="Market product"
-              action="market_product_action"
+    <menuitem id="market_product_menu_root"
+              name="Product"
               parent="market_menu_root"
               sequence="10"/>
 
     <menuitem id="market_invoice_menu"
-              name="Market invoice"
+              name="Invoice"
               action="market_invoice_action"
               parent="market_menu_root"
+              sequence="20"/>
+
+    <menuitem id="market_product_menu"
+              name="Product"
+              action="market_product_action"
+              parent="market_product_menu_root"
+              sequence="10"/>
+
+    <menuitem id="market_category_menu"
+              name="Category"
+              action="market_category_action"
+              parent="market_product_menu_root"
               sequence="20"/>
 </odoo>

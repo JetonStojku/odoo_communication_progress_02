@@ -6,6 +6,7 @@ from odoo import fields, models
 class MarketProduct(models.Model):
     _name = 'market.product'
     _description = 'Product'
+    _rec_name = 'product'
 
     product = fields.Char(string='Product name', required=True)
     quantity = fields.Float(string='Quantity', digits=(16, 6), default=0)
@@ -16,5 +17,6 @@ class MarketProduct(models.Model):
 
 class MarketCategory(models.Model):
     _name = 'market.category'
+    _rec_name = 'category'
 
     category = fields.Char(string='Category name')

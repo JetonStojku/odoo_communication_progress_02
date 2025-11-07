@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="market_category_view_list" model="ir.ui.view">
+        <field name="name">market.category.view.list</field>
+        <field name="model">market.category</field>
+        <field name="arch" type="xml">
+            <tree string="Market_category" editable="top">
+                <field name="category"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Action -->
+    <record id="market_category_action" model="ir.actions.act_window">
+        <field name="name">Market category</field>
+        <field name="res_model">market.category</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first market category!
+            </p>
+        </field>
+    </record>
+    
+</odoo>
