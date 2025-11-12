@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class MarketInvoice(models.Model):
@@ -14,9 +14,23 @@ class MarketInvoice(models.Model):
     ], string='Status', default='out')
     client_id = fields.Many2one(comodel_name='market.client', string='Client')
     employee_id = fields.Many2one(comodel_name='market.employee', string='Employee')
-    total = fields.Float(string='', digits=(16, 4))
+    total = fields.Float(string='', digits=(16, 4), compute='_calc_total', store=True)
     invoice_line_ids = fields.One2many(comodel_name='market.invoice.line', inverse_name='invoice_id',
                                        string='Invoice Lines')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('paid', 'Paid'),
+    ], string='Status', default='draft', required=True)
+
+    @api.depends('invoice_line_ids')
+    def _calc_total(self):
+        for rec in self:
+            # s = 0
+            # for line in rec.invoice_line_ids:
+            #     s += line.total
+            # self.total = s
+            rec.total = sum(self.invoice_line_ids.mapped('total'))
 
 
 class MarketInvoiceLine(models.Model):
@@ -26,4 +40,9 @@ class MarketInvoiceLine(models.Model):
     invoice_id = fields.Many2one(comodel_name='market.invoice', string='Invoice')
     quantity = fields.Float(string='Quantity', digits=(16, 4), quantity=1)
     price = fields.Float(string='Price', digits=(16, 2))
-    total = fields.Float(string='Total', digits=(16, 2))
+    total = fields.Float(string='Total', digits=(16, 2), compute='_calc_total')
+
+    @api.depends('price', 'quantity')
+    def _calc_total(self):
+        for rec in self:
+            rec.total = rec.price * rec.quantity

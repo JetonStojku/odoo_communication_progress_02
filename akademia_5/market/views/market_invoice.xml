@@ -6,6 +6,10 @@
         <field name="model">market.invoice</field>
         <field name="arch" type="xml">
             <form string="Market_invoice">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="done,paid"
+                           options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
                     <group>
                         <group>

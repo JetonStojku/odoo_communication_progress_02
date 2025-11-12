@@ -13,7 +13,7 @@
                             <field name="category_ids" widget="many2many_tags"/>
                         </group>
                         <group>
-                            <field name="quantity"/>
+                            <field name="quantity" readonly="1"/>
                             <field name="purchase_price"/>
                             <field name="sell_price"/>
                         </group>
