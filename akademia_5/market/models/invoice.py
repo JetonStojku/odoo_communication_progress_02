@@ -32,15 +32,34 @@ class MarketInvoice(models.Model):
             # self.total = s
             rec.total = sum(self.invoice_line_ids.mapped('total'))
 
+    def confirm_invoice(self):
+        self.state = 'done'
+        if self.invoice_type == 'in':
+            for invoice_line in self.invoice_line_ids:
+                invoice_line.product_id.quantity += invoice_line.quantity
+        else:
+            for invoice_line in self.invoice_line_ids:
+                invoice_line.product_id.quantity -= invoice_line.quantity
+
+    def pay_invoice(self):
+        self.state = 'paid'
+
 
 class MarketInvoiceLine(models.Model):
     _name = 'market.invoice.line'
 
     product_id = fields.Many2one(comodel_name='market.product', string='Product')
     invoice_id = fields.Many2one(comodel_name='market.invoice', string='Invoice')
-    quantity = fields.Float(string='Quantity', digits=(16, 4), quantity=1)
+    quantity = fields.Float(string='Quantity', digits=(16, 4), default=1)
     price = fields.Float(string='Price', digits=(16, 2))
     total = fields.Float(string='Total', digits=(16, 2), compute='_calc_total')
+
+    @api.onchange('product_id')
+    def _onchange_product(self):
+        if self.invoice_id.invoice_type == 'in':
+            self.price = self.product_id.purchase_price
+        else:
+            self.price = self.product_id.sell_price
 
     @api.depends('price', 'quantity')
     def _calc_total(self):

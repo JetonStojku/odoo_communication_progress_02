@@ -7,25 +7,28 @@
         <field name="arch" type="xml">
             <form string="Market_invoice">
                 <header>
-                    <field name="state" widget="statusbar" statusbar_visible="done,paid"
-                           options="{'clickable': '1'}"/>
+                    <button name="confirm_invoice" type="object" string="Confirm" class="btn-primary"
+                            invisible="state!='draft'"/>
+                    <button name="pay_invoice" type="object" string="Pay" class="btn-success"
+                            invisible="state!='done'"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="invoice_code"/>
-                            <field name="invoice_date"/>
-                            <field name="invoice_type"/>
+                            <field name="invoice_code" readonly="state!='draft'"/>
+                            <field name="invoice_date" readonly="state!='draft'"/>
+                            <field name="invoice_type" readonly="state!='draft'"/>
                         </group>
                         <group>
-                            <field name="client_id"/>
-                            <field name="employee_id"/>
+                            <field name="client_id" readonly="state!='draft'"/>
+                            <field name="employee_id" readonly="state!='draft'"/>
                             <field name="total"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Invoice lines">
-                            <field name="invoice_line_ids">
+                            <field name="invoice_line_ids" readonly="state!='draft'">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
