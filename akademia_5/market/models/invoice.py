@@ -54,6 +54,10 @@ class MarketInvoiceLine(models.Model):
     price = fields.Float(string='Price', digits=(16, 2))
     total = fields.Float(string='Total', digits=(16, 2), compute='_calc_total')
 
+    _sql_constraints = [
+        ('quantity', 'CHECK(quantity>=0)', 'Quantity must be positive'),
+    ]
+
     @api.onchange('product_id')
     def _onchange_product(self):
         if self.invoice_id.invoice_type == 'in':
