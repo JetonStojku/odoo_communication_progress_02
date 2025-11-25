@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 
 class MarketInvoice(models.Model):
     """ This model represents invoice."""
     _name = 'market.invoice'
 
-    invoice_code = fields.Char(string='Invoice Number', required=True, defualt='New')
+    invoice_code = fields.Char(string='Invoice Number', required=True, default='New')
     invoice_date = fields.Datetime(string='Invoice date', default=lambda self: fields.Datetime.now())
     invoice_type = fields.Selection([
         ('in', 'Purchase'),
         ('out', 'Sell')
-    ], string='Status', default='out')
+    ], string='Status', default='out', required=True)
     client_id = fields.Many2one(comodel_name='market.client', string='Client')
     employee_id = fields.Many2one(comodel_name='market.employee', string='Employee')
     total = fields.Float(string='', digits=(16, 4), compute='_calc_total', store=True)
@@ -32,6 +33,29 @@ class MarketInvoice(models.Model):
             # self.total = s
             rec.total = sum(self.invoice_line_ids.mapped('total'))
 
+    @api.model
+    def create(self, values):
+        if values['invoice_type'] == 'out':
+            code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
+        else:
+            code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
+        values['invoice_nr'] = code
+        res = super(MarketInvoice, self).create(values)
+        return res
+
+    def write(self, values):
+        test = self
+        res = super(MarketInvoice, self).write(values)
+        test = self
+        return res
+
+    def unlink(self):
+        for invoice in self:
+            if invoice.state != 'draft':
+                raise UserError('Invoice can not be deleted')
+        res = super(MarketInvoice, self).unlink()
+        return res
+
     def confirm_invoice(self):
         self.state = 'done'
         if self.invoice_type == 'in':
@@ -49,7 +73,7 @@ class MarketInvoiceLine(models.Model):
     _name = 'market.invoice.line'
 
     product_id = fields.Many2one(comodel_name='market.product', string='Product')
-    invoice_id = fields.Many2one(comodel_name='market.invoice', string='Invoice')
+    invoice_id = fields.Many2one(comodel_name='market.invoice', string='Invoice', ondelete='cascade')
     quantity = fields.Float(string='Quantity', digits=(16, 4), default=1)
     price = fields.Float(string='Price', digits=(16, 2))
     total = fields.Float(string='Total', digits=(16, 2), compute='_calc_total')

@@ -21,9 +21,21 @@
 
     <menuitem id="market_invoice_menu"
               name="Invoice"
-              action="market_invoice_action"
               parent="market_menu_root"
               sequence="20"/>
+
+    <menuitem id="market_invoice_menu_in"
+              name="Purchase"
+              action="market_invoice_action_in"
+              parent="market_invoice_menu"
+              sequence="10"/>
+
+    <menuitem id="market_invoice_menu_out"
+              name="Sell"
+              action="market_invoice_action_out"
+              parent="market_invoice_menu"
+              sequence="20"/>
+
 
     <menuitem id="market_product_menu"
               name="Product"

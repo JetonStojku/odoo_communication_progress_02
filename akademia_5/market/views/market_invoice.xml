@@ -16,9 +16,9 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="invoice_code" readonly="state!='draft'"/>
+                            <field name="invoice_code" readonly="1"/>
                             <field name="invoice_date" readonly="state!='draft'"/>
-                            <field name="invoice_type" readonly="state!='draft'"/>
+                            <field name="invoice_type" readonly="1"/>
                         </group>
                         <group>
                             <field name="client_id" readonly="state!='draft'"/>
@@ -57,10 +57,25 @@
     </record>
 
     <!-- Action -->
-    <record id="market_invoice_action" model="ir.actions.act_window">
-        <field name="name">Market invoice</field>
+    <record id="market_invoice_action_in" model="ir.actions.act_window">
+        <field name="name">Market invoice purchase</field>
         <field name="res_model">market.invoice</field>
         <field name="view_mode">list,form</field>
+        <field name="domain">[('invoice_type', '=', 'in')]</field>
+        <field name="context">{'default_invoice_type': 'in'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first market invoice!
+            </p>
+        </field>
+    </record>
+
+    <record id="market_invoice_action_out" model="ir.actions.act_window">
+        <field name="name">Market invoice sell</field>
+        <field name="res_model">market.invoice</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('invoice_type', '=', 'out')]</field>
+        <field name="context">{'default_invoice_type': 'out'}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first market invoice!
