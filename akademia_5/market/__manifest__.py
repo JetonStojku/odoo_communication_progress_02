@@ -13,6 +13,7 @@
     'website': '',
     'depends': ['base'],
     'data': [
+        'data/invoice_sequence.xml',
         'views/market_client.xml',
         'views/market_employee.xml',
         'views/market_product.xml',

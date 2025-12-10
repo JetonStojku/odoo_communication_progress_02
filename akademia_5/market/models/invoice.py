@@ -39,7 +39,7 @@ class MarketInvoice(models.Model):
             code = self.env['ir.sequence'].next_by_code('out.invoice.cp')
         else:
             code = self.env['ir.sequence'].next_by_code('in.invoice.cp')
-        values['invoice_nr'] = code
+        values['invoice_code'] = code
         res = super(MarketInvoice, self).create(values)
         return res
 

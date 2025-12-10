@@ -16,9 +16,9 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="invoice_code" readonly="1"/>
+                            <field name="invoice_code" readonly="True"/>
                             <field name="invoice_date" readonly="state!='draft'"/>
-                            <field name="invoice_type" readonly="1"/>
+                            <field name="invoice_type" invisible="True"/>
                         </group>
                         <group>
                             <field name="client_id" readonly="state!='draft'"/>

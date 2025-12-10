@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
 
         <record id="in_invoice_sequence" model="ir.sequence">
             <field name="name">In Invoice Sequence</field>
