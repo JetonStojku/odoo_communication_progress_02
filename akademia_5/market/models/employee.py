@@ -19,3 +19,9 @@ class MarketEmployee(models.Model):
     phone = fields.Char(string='Phone')
     description = fields.Text(string='Description')
     user_id = fields.Many2one(comodel_name='res.users', string='User', required=True)
+
+
+class ResUsers(models.Model):
+    _inherit = 'res.users'
+
+    employee_ids = fields.One2many(comodel_name='market.employee', string='Employee', inverse_name='user_id')

@@ -14,7 +14,8 @@ class MarketInvoice(models.Model):
         ('out', 'Sell')
     ], string='Status', default='out', required=True)
     client_id = fields.Many2one(comodel_name='market.client', string='Client')
-    employee_id = fields.Many2one(comodel_name='market.employee', string='Employee')
+    employee_id = fields.Many2one(comodel_name='market.employee', string='Employee',
+                                  default=lambda self: self.env.user.employee_ids.id)
     total = fields.Float(string='', digits=(16, 4), compute='_calc_total', store=True)
     invoice_line_ids = fields.One2many(comodel_name='market.invoice.line', inverse_name='invoice_id',
                                        string='Invoice Lines')
