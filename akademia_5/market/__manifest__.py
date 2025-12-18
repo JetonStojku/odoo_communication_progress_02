@@ -13,6 +13,8 @@
     'website': '',
     'depends': ['base'],
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'data/invoice_sequence.xml',
         'views/market_client.xml',
         'views/market_employee.xml',

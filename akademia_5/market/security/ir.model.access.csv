@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+market_client_market_employee,market.client.market.employee,market.model_market_client,market.group_market_employee,1,1,1,0
+market_employee_market_employee,market.employee.market.employee,market.model_market_employee,market.group_market_employee,1,0,0,0
+market_invoice_market_employee,market.invoice.market.employee,market.model_market_invoice,market.group_market_employee,1,1,1,1
+market_invoice_line_market_employee,market.invoice.line.market.employee,market.model_market_invoice_line,market.group_market_employee,1,1,1,1
+market_product_market_employee,market.product.market.employee,market.model_market_product,market.group_market_employee,1,0,0,0
+market_category_market_employee,market.category.market.employee,market.model_market_category,market.group_market_employee,1,0,0,0

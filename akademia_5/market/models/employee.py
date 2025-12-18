@@ -18,4 +18,4 @@ class MarketEmployee(models.Model):
     email = fields.Char(string='Email')
     phone = fields.Char(string='Phone')
     description = fields.Text(string='Description')
-
+    user_id = fields.Many2one(comodel_name='res.users', string='User', required=True)
