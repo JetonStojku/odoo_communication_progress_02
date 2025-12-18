@@ -21,6 +21,8 @@
         'views/market_product.xml',
         'views/market_invoice.xml',
         'views/market_category.xml',
+        'report/invoice_report_view.xml',
+        'wizard/invoice_report_wizard_view.xml',
         'views/menu.xml',
     ],
     'license': 'LGPL-3',

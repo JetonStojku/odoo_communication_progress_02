@@ -48,4 +48,10 @@
               action="market_category_action"
               parent="market_product_menu_root"
               sequence="20"/>
+
+    <menuitem id="market_report_menu"
+              name="Report 1"
+              action="invoice_report_wizard_act_window"
+              parent="market_menu_root"
+              sequence="100"/>
 </odoo>
