@@ -1,0 +1,15 @@
+{
+    'name': 'Selling Store',
+    'version': '1.0',
+    'summary': 'Selling Store',
+    'description': 'Selling Store',
+    'category': 'Akademia_6',
+    'author': 'Author',
+    'website': 'Website',
+    'depends': ['base'],
+    'data': [],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}
