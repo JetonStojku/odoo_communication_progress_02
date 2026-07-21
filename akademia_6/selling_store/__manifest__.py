@@ -7,7 +7,9 @@
     'author': 'Author',
     'website': 'Website',
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'views/client_view.xml',
+    ],
     'demo': [],
     'installable': True,
     'auto_install': False,
