@@ -9,6 +9,7 @@
     'depends': ['base'],
     'data': [
         'views/client_view.xml',
+        'views/employee_view.xml',
     ],
     'demo': [],
     'installable': True,
