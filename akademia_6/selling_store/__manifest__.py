@@ -10,6 +10,7 @@
     'data': [
         'views/client_view.xml',
         'views/employee_view.xml',
+        'views/category_view.xml'
     ],
     'demo': [],
     'installable': True,
