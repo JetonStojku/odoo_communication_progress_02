@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="store_root" name="Store" sequence="10"/>
+
+        <menuitem name="Client" id="client_menu" parent="store_root" action="client_act_window" sequence="10"/>
+        <menuitem name="Employee" id="employee_menu" parent="store_root" action="employee_act_window" sequence="20"/>
+
+        <menuitem id="config_menu" name="Config" parent="store_root" sequence="800"/>
+        <menuitem name="Product" id="product_menu" parent="config_menu" action="product_act_window" sequence="10"/>
+        <menuitem name="Category" id="category_menu" parent="config_menu" action="category_act_window" sequence="20"/>
+
+
+    </data>
+</odoo>

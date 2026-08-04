@@ -10,7 +10,9 @@
     'data': [
         'views/client_view.xml',
         'views/employee_view.xml',
-        'views/category_view.xml'
+        'views/product_view.xml',
+        'views/category_view.xml',
+        'views/menu.xml',
     ],
     'demo': [],
     'installable': True,

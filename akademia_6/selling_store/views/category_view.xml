@@ -6,7 +6,7 @@
             <field name="name">selling_store.category.tree</field>
             <field name="model">selling_store.category</field>
             <field name="arch" type="xml">
-                <tree string="Category">
+                <tree string="Category" editable="top">
                     <field name="name"/>
                     <field name="description"/>
                 </tree>
@@ -35,8 +35,6 @@
                 </p>
             </field>
         </record>
-
-        <menuitem name="Category" id="category_menu" parent="store_root" action="category_act_window"/>
 
     </data>
 </odoo>

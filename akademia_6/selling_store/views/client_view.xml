@@ -67,8 +67,5 @@
             </field>
         </record>
 
-        <menuitem id="store_root" name="Store" sequence="10"/>
-        <menuitem name="Client" id="client_menu" parent="store_root" action="client_act_window" sequence="10"/>
-
     </data>
 </odoo>
