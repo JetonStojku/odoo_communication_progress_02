@@ -3,6 +3,7 @@ from odoo import fields, models, api
 
 class SellingStoreProduct(models.Model):
     _name = 'selling_store.product'
+    _rec_name = 'product'
 
     product = fields.Char(string='Product Name', required=True)
     quantity = fields.Float(string='Quantity', default=0, required=True)
