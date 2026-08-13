@@ -6,7 +6,7 @@ class SellingStoreInvoice(models.Model):
 
     code = fields.Char(string="Invoice Number")
     employee_id = fields.Many2one(comodel_name='selling_store.employee', string='Employee', required=True)
-    client_id = fields.Many2one(comodel_name='selling_store.client', string='Client_id')
+    client_id = fields.Many2one(comodel_name='selling_store.client', string='Client')
     invoice_date = fields.Datetime(string='Invoice date', required=True, default=lambda self: fields.Datetime.now())
     total = fields.Float(string='Total')
     state = fields.Selection(string='State', required=True, default='draft',
@@ -22,11 +22,34 @@ class SellingStoreInvoice(models.Model):
         inverse_name='invoice_id',
         string='Invoice Line')
 
+    def done_invoice(self):
+        for invoice_line in self.invoice_line_ids:
+            if invoice_line.product_id.quantity < invoice_line.quantity:
+                return ValueError('URI connections not allowed')
+            invoice_line.product_id.quantity -= invoice_line.quantity
+        self.state = 'done'
+
+    def pay_invoice(self):
+        self.state = 'paid'
+
 
 class SellingStoreInvoiceLine(models.Model):
     _name = 'selling_store.invoice.line'
 
     product_id = fields.Many2one(comodel_name='selling_store.product', string='Product')
     invoice_id = fields.Many2one(comodel_name='selling_store.invoice', string='Invoice')
-    quantity = fields.Float(string='Quantity')
+    quantity = fields.Float(string='Quantity', default=1)
     price = fields.Float(string='Price')
+    total = fields.Float(string='Total', compute='_calc_total')
+
+    @api.onchange('product_id')
+    def _onchange_method(self):
+        if self.invoice_id.type == 'in':
+            self.price = self.product_id.buy_price
+        else:
+            self.price = self.product_id.sell_price
+
+    @api.depends('price', 'quantity')
+    def _calc_total(self):
+        for invoice_line in self:
+            invoice_line.total = invoice_line.quantity * invoice_line.price
