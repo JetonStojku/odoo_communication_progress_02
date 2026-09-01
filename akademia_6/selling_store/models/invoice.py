@@ -8,7 +8,8 @@ class SellingStoreInvoice(models.Model):
     employee_id = fields.Many2one(comodel_name='selling_store.employee', string='Employee', required=True)
     client_id = fields.Many2one(comodel_name='selling_store.client', string='Client')
     invoice_date = fields.Datetime(string='Invoice date', required=True, default=lambda self: fields.Datetime.now())
-    total = fields.Float(string='Total')
+    total = fields.Float(string='Total', compute='_calc_total', store=True)
+    # total = fields.Float(string='Total')
     state = fields.Selection(string='State', required=True, default='draft',
                              selection=[('draft', 'Draft'),
                                         ('done', 'Done'),
@@ -21,6 +22,15 @@ class SellingStoreInvoice(models.Model):
         comodel_name='selling_store.invoice.line',
         inverse_name='invoice_id',
         string='Invoice Line')
+
+    @api.depends('invoice_line_ids')
+    def _calc_total(self):
+        for invoice in self:
+            #     s = 0
+            #     for invoice_line in invoice.invoice_line_ids:
+            #         s += invoice_line.total
+            #     invoice.total = s
+            invoice.total = sum(self.invoice_line_ids.mapped('total'))
 
     def done_invoice(self):
         for invoice_line in self.invoice_line_ids:
