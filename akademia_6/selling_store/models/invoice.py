@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class SellingStoreInvoice(models.Model):
@@ -42,6 +43,17 @@ class SellingStoreInvoice(models.Model):
     def pay_invoice(self):
         self.state = 'paid'
 
+    @api.model
+    def create(self, values):
+        if values.get('type') == 'in':
+            values['code'] = self.env['ir.sequence'].next_by_code('in.invoice.cp')
+        else:
+            values['code'] = self.env['ir.sequence'].next_by_code('out.invoice.cp')
+
+        invoice = super(SellingStoreInvoice, self).create(values)
+        # invoice -> new object created
+        return invoice
+
 
 class SellingStoreInvoiceLine(models.Model):
     _name = 'selling_store.invoice.line'
@@ -51,6 +63,17 @@ class SellingStoreInvoiceLine(models.Model):
     quantity = fields.Float(string='Quantity', default=1)
     price = fields.Float(string='Price')
     total = fields.Float(string='Total', compute='_calc_total')
+
+    _sql_constraints = [
+        ('quantity', 'CHECK(quantity>=0)', 'Quantity must be positive'),
+        ('price', 'CHECK(price>=0)', 'Price must be positive'),
+    ]
+
+    # @api.constrains('quantity')
+    # def _check_quantity(self):
+    #     for line in self:
+    #         if line.quantity < 0:
+    #             raise ValidationError('Quantity must be positive')
 
     @api.onchange('product_id')
     def _onchange_method(self):
