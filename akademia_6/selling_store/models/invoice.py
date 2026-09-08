@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class SellingStoreInvoice(models.Model):
     _name = 'selling_store.invoice'
 
-    code = fields.Char(string="Invoice Number")
+    code = fields.Char(string="Invoice Number", readonly=True)
     employee_id = fields.Many2one(comodel_name='selling_store.employee', string='Employee', required=True)
     client_id = fields.Many2one(comodel_name='selling_store.client', string='Client')
     invoice_date = fields.Datetime(string='Invoice date', required=True, default=lambda self: fields.Datetime.now())
@@ -53,6 +53,21 @@ class SellingStoreInvoice(models.Model):
         invoice = super(SellingStoreInvoice, self).create(values)
         # invoice -> new object created
         return invoice
+
+    def write(self, values):
+        test = self
+        res = super(SellingStoreInvoice, self).write(values)
+        test = self
+        return res
+
+    def unlink(self):
+        # for invoice in self:
+        #     if invoice.state != 'draft':
+        #         raise UserError('Invoice can not be deleted')
+        if self.filtered(lambda invoice: invoice.state == 'draft'):
+            raise UserError('Invoice can not be deleted')
+        res = super(SellingStoreInvoice, self).unlink()
+        return res
 
 
 class SellingStoreInvoiceLine(models.Model):
