@@ -22,6 +22,7 @@
                                 <field name="birthday"/>
                             </group>
                             <group>
+                                <field name="user_id"/>
                                 <field name="role"/>
                                 <field name="salary"/>
                                 <field name="start_day"/>

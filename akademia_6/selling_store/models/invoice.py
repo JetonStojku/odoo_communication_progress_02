@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 
 class SellingStoreInvoice(models.Model):
@@ -35,8 +35,6 @@ class SellingStoreInvoice(models.Model):
 
     def done_invoice(self):
         for invoice_line in self.invoice_line_ids:
-            if invoice_line.product_id.quantity < invoice_line.quantity:
-                return ValueError('URI connections not allowed')
             invoice_line.product_id.quantity -= invoice_line.quantity
         self.state = 'done'
 
@@ -62,9 +60,9 @@ class SellingStoreInvoice(models.Model):
 
     def unlink(self):
         # for invoice in self:
-        #     if invoice.state != 'draft':
-        #         raise UserError('Invoice can not be deleted')
-        if self.filtered(lambda invoice: invoice.state == 'draft'):
+        #         #     if invoice.state != 'draft':
+        #         #         raise UserError('Invoice can not be deleted')
+        if self.filtered(lambda invoice: invoice.state != 'draft'):
             raise UserError('Invoice can not be deleted')
         res = super(SellingStoreInvoice, self).unlink()
         return res

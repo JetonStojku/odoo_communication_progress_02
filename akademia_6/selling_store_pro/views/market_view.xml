@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View -->
+    <record id="invoice_form_view_inherit" model="ir.ui.view">
+        <field name="name">selling_store.invoice.form.view.inherit</field>
+        <field name="model">selling_store.invoice</field>
+        <field name="inherit_id" ref="selling_store.invoice_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add fields to an existing group -->
+            <xpath expr="//button[@name='pay_invoice']" position="after">
+                <button name="apply_discount" type="object" string="Apply discount" class="btn-success"
+                        invisible="state!='draft'"/>
+            </xpath>
+
+            <!-- Add a new page to the notebook -->
+            <field name="client_id" position="after">
+                <field name="points"/>
+            </field>
+
+            <!-- Modify an existing field -->
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='total']" position="before">
+                <field name="discount"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+</odoo>

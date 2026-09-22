@@ -17,3 +17,4 @@ class SellingStoreEmployee(models.Model):
                                        ('admin', 'Admin')])
     salary = fields.Float(string='Salary', digits=(12, 4))
     start_day = fields.Date(string='Start Day', required=True)
+    user_id = fields.Many2one(comodel_name='res.users', string='User', required=False)

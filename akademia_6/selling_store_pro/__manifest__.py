@@ -1,0 +1,15 @@
+{
+    'name': 'Selling Store Pro',
+    'version': '1.0.0',
+    'summary': 'Summery',
+    'description': 'Description',
+    'category': 'Akademia_6',
+    'author': 'Author',
+    'website': 'Website',
+    'depends': ['selling_store'],
+    'data': [],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}
